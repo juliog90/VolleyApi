@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //listView
-        listviewid = (ListView)findViewById(R.id.idListView);
+        listviewid = (ListView)findViewById(R.id.listViewId);
 
         //Texview
         txtName = (TextView)findViewById(R.id.txtNombre);
