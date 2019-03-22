@@ -25,6 +25,7 @@ public class LoadContacts extends AsyncTask<String, Void, ArrayList<Contacto>>  
     protected void onPreExecute() {
         progress = new ProgressDialog(this.activity);
         progress.setMessage("Loading...");
+        progress.setIndeterminate(false);
         progress.setCancelable(false);
         progress.show();
     }
@@ -33,13 +34,13 @@ public class LoadContacts extends AsyncTask<String, Void, ArrayList<Contacto>>  
     protected ArrayList<Contacto> doInBackground(String... strings) {
         // Contactos
         ArrayList<Contacto> contacts = new ArrayList<Contacto>();
-
-
-
     }
 
     @Override
     protected void onPostExecute(ArrayList<Contacto> contactos) {
         ListView ListContacts = this.activity.findViewById(R.id.listViewContacts);
+        ContactAdapter adapter = new ContactAdapter(this.activity, contactos);
+        ListContacts.setAdapter(adapter);
+        progress.dismiss();
     }
 }
