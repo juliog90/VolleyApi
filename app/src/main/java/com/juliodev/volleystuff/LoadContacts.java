@@ -9,6 +9,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,7 +17,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class LoadContacts extends AsyncTask<String, Void, ArrayList<Contacto>>  {
+public class LoadContacts extends AsyncTask<String, Void, ArrayList<Contacto>> {
 
     public static final String API_URL = "http://pratikbutani.x10.mx/json_data.json";
     public static final String KEY_CONTACTS = "contacts";
@@ -30,8 +31,9 @@ public class LoadContacts extends AsyncTask<String, Void, ArrayList<Contacto>>  
     private Activity activity;
     private ProgressDialog progress;
 
-    public LoadContacts(Activity activity) { this.activity = activity;}
-
+    public LoadContacts(Activity activity) {
+        this.activity = activity;
+    }
 
 
     @Override
@@ -50,6 +52,10 @@ public class LoadContacts extends AsyncTask<String, Void, ArrayList<Contacto>>  
         JsonArrayRequest getContacts = new JsonArrayRequest(API_URL, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+                JSONObject jsonObject = null;
+
+                   // JSONArray jsonArray = jsonObject.getJSONArray(KEY_CONTACTS);
+
                 // parsing json
                 for (int i = 0; 1 < response.length(); i++) {
                     try {
@@ -64,16 +70,19 @@ public class LoadContacts extends AsyncTask<String, Void, ArrayList<Contacto>>  
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        VolleyLog.d(TAG, "Error en peticion" + error.getMessage());
-                    }
-                };
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(TAG,"Error en peticion",error.getMessage());
             }
         });
         return contacts;
     }
+
+
+
 
     @Override
     protected void onPostExecute(ArrayList<Contacto> contactos) {

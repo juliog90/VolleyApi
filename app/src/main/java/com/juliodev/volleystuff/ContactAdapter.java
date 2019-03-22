@@ -52,9 +52,6 @@ public class ContactAdapter extends BaseAdapter {
         txtEmail.setText(c.getEmail());
         txtName.setText(c.getName());
 
-
-
-
         return view;
     }
 }
