@@ -11,8 +11,10 @@ public class LoadContacts extends AsyncTask<String, Void, ArrayList<Contacto>>  
 
     public static final String API_URL = "http://pratikbutani.x10.mx/json_data.json";
     public static final String KEY_CONTACTS = "contacts";
+    public static final String KEY_NAME = "name";
     public static final String KEY_EMAIL = "email";
     public static final String KEY_GENDER = "gender";
+    public static final String KEY_IMAGE = "profile_pic";
 
     private Activity activity;
     private ProgressDialog progress;
