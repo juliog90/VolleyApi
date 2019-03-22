@@ -3,12 +3,16 @@ package com.juliodev.volleystuff;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.ListView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -47,19 +51,21 @@ public class LoadContacts extends AsyncTask<String, Void, ArrayList<Contacto>> {
 
     @Override
     protected ArrayList<Contacto> doInBackground(String... strings) {
+
+
         // Contactos
         final ArrayList<Contacto> contacts = new ArrayList<Contacto>();
-        JsonArrayRequest getContacts = new JsonArrayRequest(API_URL, new Response.Listener<JSONArray>() {
+        JsonObjectRequest getContacts = new JsonObjectRequest(Request.Method.GET,API_URL,null, new Response.Listener<JSONObject>() {
+
             @Override
-            public void onResponse(JSONArray response) {
-                JSONObject jsonObject = null;
+            public void onResponse(JSONObject response) {
 
-                   // JSONArray jsonArray = jsonObject.getJSONArray(KEY_CONTACTS);
+                Log.e("Prueba",response.toString());
+                try {
+                   JSONArray jsonArray = response.getJSONArray(KEY_CONTACTS);
 
-                // parsing json
-                for (int i = 0; 1 < response.length(); i++) {
-                    try {
-                        JSONObject json = response.getJSONObject(i);
+                    for (int i = 0; 1 < response.length(); i++) {
+                        JSONObject json = jsonArray.getJSONObject(i);
                         Contacto contact = new Contacto();
                         contact.setName(json.getString(KEY_NAME));
                         contact.setGender(json.getString(KEY_GENDER));
@@ -67,9 +73,9 @@ public class LoadContacts extends AsyncTask<String, Void, ArrayList<Contacto>> {
                         contact.setEmail(json.getString(KEY_EMAIL));
 
                         contacts.add(contact);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
@@ -78,6 +84,9 @@ public class LoadContacts extends AsyncTask<String, Void, ArrayList<Contacto>> {
                 VolleyLog.d(TAG,"Error en peticion",error.getMessage());
             }
         });
+        RequestQueue requestQueue = Volley.newRequestQueue();
+        requestQueue.start();
+        requestQueue.add(getContacts);
         return contacts;
     }
 
@@ -86,6 +95,7 @@ public class LoadContacts extends AsyncTask<String, Void, ArrayList<Contacto>> {
 
     @Override
     protected void onPostExecute(ArrayList<Contacto> contactos) {
+        Log.e("Prueba",contactos.size() + "");
         ListView ListContacts = this.activity.findViewById(R.id.listViewContacts);
         ContactAdapter adapter = new ContactAdapter(this.activity, contactos);
         ListContacts.setAdapter(adapter);
