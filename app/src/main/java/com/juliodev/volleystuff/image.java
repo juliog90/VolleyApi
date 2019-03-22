@@ -8,22 +8,21 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class image {
-
-    public static Drawable fromUrl(String url){
-        //define object
+public class Image {
+    //getI Image from URL
+    public static Drawable fromUrl(String url) {
+        //Define Object
         Drawable d = null;
+        //
         try {
-            InputStream data = (InputStream)new URL(url).getContent();
+            InputStream data = (InputStream) new URL(url).getContent();
             d = Drawable.createFromStream(data, "");
+        } catch (MalformedURLException e) {
+            Log.e("Error", e.getMessage());
+        } catch (IOException e) {
+            Log.e("Error", e.getMessage());
         }
-        catch (MalformedURLException ex){
-            Log.e("Error",ex.getMessage());
-        }
-        catch (IOException ex){
-            Log.e("Error",ex.getMessage());
-        }
-        //return drawable object
-        return  d;
+        //return Drawable object
+        return d;
     }
 }

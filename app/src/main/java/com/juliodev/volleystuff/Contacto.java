@@ -1,13 +1,20 @@
 package com.juliodev.volleystuff;
 
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.util.LruCache;
+
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.Volley;
 
 public class Contacto {
 
     private String name;
     private String email;
     private String gender;
-    private Drawable icon;
+    private Bitmap icon;
 
     public String getName() {
         return name;
@@ -33,14 +40,44 @@ public class Contacto {
         this.gender = gender;
     }
 
-    public Drawable getImage() {
+    public Bitmap getImage() {
         return icon;
     }
 
-    public void setImage(Drawable icon) { this.icon = icon; }
+    public void setImage(Bitmap icon) {
+        this.icon = icon;
+    }
 
-    public void setImage(String icon) { this.icon = image.fromUrl(icon); }
+    public void setImage(final String url, Context context) {
+        ImageLoader load = new ImageLoader(Volley.newRequestQueue(context),new ImageLoader.ImageCache() {
+            private final LruCache<String, Bitmap>
+                    cache = new LruCache<String, Bitmap>(20);
 
+            @Override
+            public Bitmap getBitmap(String url) {
+                return cache.get(url);
+            }
+
+            @Override
+            public void putBitmap(String url, Bitmap bitmap) {
+                cache.put(url, bitmap);
+            }
+        });
+        load.get(url, new ImageLoader.ImageListener() {
+            @Override
+            public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
+                if(response.getBitmap()!= null){
+                    icon = response.getBitmap();
+                }
+            }
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        //this.icon = Image.fromUrl(icon);
+    }
 
     public Contacto() {
         this.name = "";
@@ -53,7 +90,6 @@ public class Contacto {
         this.name = name;
         this.email = email;
         this.gender = gender;
-        this.icon = image.fromUrl(iconUrl);
     }
 
 }

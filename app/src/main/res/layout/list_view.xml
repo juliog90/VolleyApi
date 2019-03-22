@@ -34,7 +34,7 @@
         android:layout_marginTop="50sp"
         android:textColor="@color/negro"
         android:text="Email..."
-        android:textSize="15sp">
+        android:textSize="20sp">
     </TextView>
 
     <TextView
@@ -45,7 +45,7 @@
         android:layout_toRightOf="@id/imgImagen"
         android:layout_marginTop="20sp"
         android:text="Genero.."
-        android:textSize="15sp"
+        android:textSize="20sp"
         android:textColor="@color/negro">
     </TextView>
 

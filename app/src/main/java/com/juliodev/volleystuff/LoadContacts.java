@@ -12,7 +12,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -50,56 +49,57 @@ public class LoadContacts extends AsyncTask<String, Void, ArrayList<Contacto>> {
         progress.show();
     }
 
+    ArrayList<Contacto> contactos;
+
     @Override
     protected ArrayList<Contacto> doInBackground(String... strings) {
 
-
-
+        contactos = new ArrayList<Contacto>();
         // Contactos
-         final ArrayList<Contacto> contacts = new ArrayList<Contacto>();
-        JsonObjectRequest getContacts = new JsonObjectRequest(Request.Method.GET,API_URL,null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest getContacts = new JsonObjectRequest(Request.Method.GET, API_URL, null, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
-
-                Log.e("Prueba",response.toString());
-                try {
-                   JSONArray jsonArray = response.getJSONArray(KEY_CONTACTS);
-
-                    for (int i = 0; i < jsonArray.length(); i++) {
-
-                        JSONObject json = jsonArray.getJSONObject(i);
-
-                        Contacto contact = new Contacto();
-                        contact.setName(json.getString(KEY_NAME));
-                        contact.setEmail(json.getString(KEY_EMAIL));
-                        contact.setGender(json.getString(KEY_GENDER));
-                       // contact.setImage(ResourcesCompat.getDrawable(activity.getResources(),R.drawable.asuna2,null));
-                       // contact.setImage(json.getString(KEY_IMAGE));
-                        contacts.add(contact);
-                    }
-                    onPostExecute(contacts);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                GG(response);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                VolleyLog.d(TAG,"Error en peticion",error.getMessage());
+                VolleyLog.d(TAG, "Error en peticion", error.getMessage());
             }
         });
         RequestQueue requestQueue = Volley.newRequestQueue(activity);
         requestQueue.add(getContacts);
-        return contacts;
+        Log.e("ASDASD", contactos.size() + "");
+        return contactos;
     }
 
+    protected void GG(JSONObject a) {
+        Log.e("Prueba", a.toString());
+        try {
+            JSONArray jsonArray = a.getJSONArray(KEY_CONTACTS);
+            Log.e("a", jsonArray.toString());
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject json = jsonArray.getJSONObject(i);
+                Log.e("jhb", i + "");
+                Contacto contact = new Contacto();
+                contact.setName(json.getString(KEY_NAME));
+                contact.setGender(json.getString(KEY_GENDER));
+                contact.setImage(json.getString(KEY_IMAGE), activity);//ResourcesCompat.getDrawable(activity.getResources(),R.drawable.asuna2,null));
+                contact.setEmail(json.getString(KEY_EMAIL));
 
-
+                contactos.add(contact);
+            }
+            Log.e("FOR", contactos.size() + "");
+            onPostExecute(contactos);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     protected void onPostExecute(ArrayList<Contacto> contactos) {
-        Log.e("Prueba",contactos.size() + "");
+        Log.e("post", contactos.size() + "");
         ListView ListContacts = this.activity.findViewById(R.id.listViewContacts);
         ContactAdapter adapter = new ContactAdapter(this.activity, contactos);
         ListContacts.setAdapter(adapter);
