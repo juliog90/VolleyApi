@@ -41,6 +41,10 @@ public class Contacto {
         this.icon = icon;
     }
 
+    public void setImage(String icon) {
+        this.icon = image.fromUrl(icon);
+    }
+
     public Contacto() {
         this.name = "";
         this.email = "";
