@@ -7,7 +7,7 @@ public class Contacto {
     private String name;
     private String email;
     private String gender;
-    private Drawable image;
+    private Drawable icon;
 
     public String getName() {
         return name;
@@ -34,24 +34,25 @@ public class Contacto {
     }
 
     public Drawable getImage() {
-        return image;
+        return icon;
     }
 
-    public void setImage(Drawable image) {
-        this.image = image;
-    }
-
-    public Contacto(String name, String email, String gender, Drawable image) {
-        this.name = name;
-        this.email = email;
-        this.gender = gender;
-        this.image = image;
+    public void setImage(Drawable icon) {
+        this.icon = icon;
     }
 
     public Contacto() {
         this.name = "";
         this.email = "";
         this.gender = "";
-        this.image = null;
+        this.icon = null;
     }
+
+    public Contacto(String name, String email, String gender, String iconUrl) {
+        this.name = name;
+        this.email = email;
+        this.gender = gender;
+        this.icon = Image.fromUrl(iconUrl);
+    }
+
 }
