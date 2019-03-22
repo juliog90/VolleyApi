@@ -52,7 +52,7 @@ public class Contacto {
         this.name = name;
         this.email = email;
         this.gender = gender;
-        this.icon = Image.fromUrl(iconUrl);
+        this.icon = image.fromUrl(iconUrl);
     }
 
 }
