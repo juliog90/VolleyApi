@@ -31,7 +31,11 @@ public class LoadContacts extends AsyncTask<String, Void, ArrayList<Contacto>>  
 
     @Override
     protected ArrayList<Contacto> doInBackground(String... strings) {
-        return null;
+        // Contactos
+        ArrayList<Contacto> contacts = new ArrayList<Contacto>();
+
+
+
     }
 
     @Override
