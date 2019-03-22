@@ -17,7 +17,9 @@ public class LoadContacts extends AsyncTask<String, Void, ArrayList<Contacto>>  
     private Activity activity;
     private ProgressDialog progress;
 
-    public LoadContacts(Activity activity) { this.activity - activity;}
+    public LoadContacts(Activity activity) { this.activity = activity;}
+
+
 
     @Override
     protected void onPreExecute() {

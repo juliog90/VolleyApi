@@ -17,10 +17,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //listView
-        listviewid = (ListView)findViewById(R.id.listViewId);
+        listviewid = (ListView)findViewById(R.id.listViewContacts);
 
         //Texview
         txtName = (TextView)findViewById(R.id.txtNombre);
         txtEmail = (TextView)findViewById(R.id.txtEmail);
+        //load data in the main
+        new LoadContacts(MainActivity.this).execute();
     }
 }
