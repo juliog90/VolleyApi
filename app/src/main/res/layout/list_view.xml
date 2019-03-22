@@ -21,7 +21,8 @@
         android:text="Nombre"
         android:gravity="center"
         android:textSize="20sp"
-        android:textColor="@color/negro">
+        android:textColor="@color/negro"
+        android:textStyle="bold">
     </TextView>
 
     <TextView
