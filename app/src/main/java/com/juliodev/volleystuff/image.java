@@ -8,7 +8,7 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class Image {
+public class image {
     //getI image from URL
     public static Drawable fromUrl(String url) {
         //Define Object
