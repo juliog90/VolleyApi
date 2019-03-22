@@ -22,5 +22,7 @@ public class MainActivity extends AppCompatActivity {
         //Texview
         txtName = (TextView)findViewById(R.id.txtNombre);
         txtEmail = (TextView)findViewById(R.id.txtEmail);
+        //load data in the main
+        new LoadContacts(MainActivity.this).execute();
     }
 }
