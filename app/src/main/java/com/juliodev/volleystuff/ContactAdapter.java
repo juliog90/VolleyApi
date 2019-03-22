@@ -47,10 +47,11 @@ public class ContactAdapter extends BaseAdapter {
 
         Contacto c = this.arrayList.get(position);
 
-        images.setImageDrawable(c.getImage());
-        txtGenero.setText(c.getGender());
         txtEmail.setText(c.getEmail());
         txtName.setText(c.getName());
+        txtGenero.setText("Genero: " + c.getGender());
+        images.setImageDrawable(c.getImage());
+
 
         return view;
     }

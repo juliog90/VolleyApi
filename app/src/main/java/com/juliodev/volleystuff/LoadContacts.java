@@ -3,6 +3,7 @@ package com.juliodev.volleystuff;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.support.v4.content.res.ResourcesCompat;
 import android.util.Log;
 import android.widget.ListView;
 
@@ -53,8 +54,9 @@ public class LoadContacts extends AsyncTask<String, Void, ArrayList<Contacto>> {
     protected ArrayList<Contacto> doInBackground(String... strings) {
 
 
+
         // Contactos
-        final ArrayList<Contacto> contacts = new ArrayList<Contacto>();
+         final ArrayList<Contacto> contacts = new ArrayList<Contacto>();
         JsonObjectRequest getContacts = new JsonObjectRequest(Request.Method.GET,API_URL,null, new Response.Listener<JSONObject>() {
 
             @Override
@@ -64,16 +66,19 @@ public class LoadContacts extends AsyncTask<String, Void, ArrayList<Contacto>> {
                 try {
                    JSONArray jsonArray = response.getJSONArray(KEY_CONTACTS);
 
-                    for (int i = 0; 1 < response.length(); i++) {
+                    for (int i = 0; i < jsonArray.length(); i++) {
+
                         JSONObject json = jsonArray.getJSONObject(i);
+
                         Contacto contact = new Contacto();
                         contact.setName(json.getString(KEY_NAME));
-                        contact.setGender(json.getString(KEY_GENDER));
-                        contact.setImage(json.getString(KEY_IMAGE));
                         contact.setEmail(json.getString(KEY_EMAIL));
-
+                        contact.setGender(json.getString(KEY_GENDER));
+                       // contact.setImage(ResourcesCompat.getDrawable(activity.getResources(),R.drawable.asuna2,null));
+                       // contact.setImage(json.getString(KEY_IMAGE));
                         contacts.add(contact);
                     }
+                    onPostExecute(contacts);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -84,8 +89,7 @@ public class LoadContacts extends AsyncTask<String, Void, ArrayList<Contacto>> {
                 VolleyLog.d(TAG,"Error en peticion",error.getMessage());
             }
         });
-        RequestQueue requestQueue = Volley.newRequestQueue();
-        requestQueue.start();
+        RequestQueue requestQueue = Volley.newRequestQueue(activity);
         requestQueue.add(getContacts);
         return contacts;
     }

@@ -37,13 +37,10 @@ public class Contacto {
         return icon;
     }
 
-    public void setImage(Drawable icon) {
-        this.icon = icon;
-    }
+    public void setImage(Drawable icon) { this.icon = icon; }
 
-    public void setImage(String icon) {
-        this.icon = image.fromUrl(icon);
-    }
+    public void setImage(String icon) { this.icon = image.fromUrl(icon); }
+
 
     public Contacto() {
         this.name = "";
