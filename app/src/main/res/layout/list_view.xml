@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="20sp"
+    android:paddingLeft="20sp"
+    android:paddingRight="20sp">
+
+    <ImageView
+        android:id="@+id/imgImagen"
+        android:layout_width="150sp"
+        android:layout_height="150sp"
+        android:src="@drawable/asuna2">
+    </ImageView>
+
+    <TextView
+        android:id="@+id/txtNombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/imgImagen"
+        android:text="Nombre"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textColor="@color/negro">
+    </TextView>
+
+    <TextView
+        android:id="@+id/txtEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtNombre"
+        android:layout_toRightOf="@id/imgImagen"
+        android:layout_marginTop="50sp"
+        android:textColor="@color/negro"
+        android:text="Email..."
+        android:textSize="20sp">
+    </TextView>
+
+</RelativeLayout>
