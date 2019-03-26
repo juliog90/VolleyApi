@@ -3,7 +3,6 @@ package com.juliodev.volleystuff;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
-import android.support.v4.content.res.ResourcesCompat;
 import android.util.Log;
 import android.widget.ListView;
 
@@ -21,7 +20,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class LoadContacts extends AsyncTask<String, Void, ArrayList<Contacto>> {
+public class LoadContacts extends AsyncTask<String, Void, ArrayList<Contact>> {
 
     public static final String API_URL = "http://pratikbutani.x10.mx/json_data.json";
     public static final String KEY_CONTACTS = "contacts";
@@ -49,12 +48,12 @@ public class LoadContacts extends AsyncTask<String, Void, ArrayList<Contacto>> {
         progress.show();
     }
 
-    ArrayList<Contacto> contactos;
+    ArrayList<Contact> contacts;
 
     @Override
-    protected ArrayList<Contacto> doInBackground(String... strings) {
+    protected ArrayList<Contact> doInBackground(String... strings) {
 
-        contactos = new ArrayList<Contacto>();
+        contacts = new ArrayList<Contact>();
         // Contactos
         JsonObjectRequest getContacts = new JsonObjectRequest(Request.Method.GET, API_URL, null, new Response.Listener<JSONObject>() {
 
@@ -70,8 +69,8 @@ public class LoadContacts extends AsyncTask<String, Void, ArrayList<Contacto>> {
         });
         RequestQueue requestQueue = Volley.newRequestQueue(activity);
         requestQueue.add(getContacts);
-        Log.e("ASDASD", contactos.size() + "");
-        return contactos;
+        Log.e("ASDASD", contacts.size() + "");
+        return contacts;
     }
 
     protected void GG(JSONObject a) {
@@ -82,26 +81,26 @@ public class LoadContacts extends AsyncTask<String, Void, ArrayList<Contacto>> {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject json = jsonArray.getJSONObject(i);
                 Log.e("jhb", i + "");
-                Contacto contact = new Contacto();
+                Contact contact = new Contact();
                 contact.setName(json.getString(KEY_NAME));
                 contact.setGender(json.getString(KEY_GENDER));
                 contact.setImage(json.getString(KEY_IMAGE), activity);//ResourcesCompat.getDrawable(activity.getResources(),R.drawable.asuna2,null));
                 contact.setEmail(json.getString(KEY_EMAIL));
 
-                contactos.add(contact);
+                contacts.add(contact);
             }
-            Log.e("FOR", contactos.size() + "");
-            onPostExecute(contactos);
+            Log.e("FOR", contacts.size() + "");
+            onPostExecute(contacts);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    protected void onPostExecute(ArrayList<Contacto> contactos) {
-        Log.e("post", contactos.size() + "");
+    protected void onPostExecute(ArrayList<Contact> contacts) {
+        Log.e("post", contacts.size() + "");
         ListView ListContacts = this.activity.findViewById(R.id.listViewContacts);
-        ContactAdapter adapter = new ContactAdapter(this.activity, contactos);
+        ContactAdapter adapter = new ContactAdapter(this.activity, contacts);
         ListContacts.setAdapter(adapter);
         progress.dismiss();
     }

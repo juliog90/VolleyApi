@@ -9,7 +9,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 
-public class Contacto {
+public class Contact {
 
     private String name;
     private String email;
@@ -79,14 +79,14 @@ public class Contacto {
         //this.icon = Image.fromUrl(icon);
     }
 
-    public Contacto() {
+    public Contact() {
         this.name = "";
         this.email = "";
         this.gender = "";
         this.icon = null;
     }
 
-    public Contacto(String name, String email, String gender, String iconUrl) {
+    public Contact(String name, String email, String gender, String iconUrl) {
         this.name = name;
         this.email = email;
         this.gender = gender;

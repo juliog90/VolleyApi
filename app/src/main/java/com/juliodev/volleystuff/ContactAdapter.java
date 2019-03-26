@@ -14,10 +14,10 @@ public class ContactAdapter extends BaseAdapter {
 
 
     private Context context;
-    private ArrayList<Contacto> arrayList;
+    private ArrayList<Contact> arrayList;
     private static LayoutInflater inflater;
 
-    public ContactAdapter(Context context, ArrayList<Contacto> arrayList){
+    public ContactAdapter(Context context, ArrayList<Contact> arrayList){
 
         this.context = context;
         this.arrayList = arrayList;
@@ -45,7 +45,7 @@ public class ContactAdapter extends BaseAdapter {
         TextView txtGenero = (TextView) view.findViewById(R.id.txtGenero);
         ImageView images = (ImageView) view.findViewById(R.id.imgImagen);
 
-        Contacto c = this.arrayList.get(position);
+        Contact c = this.arrayList.get(position);
 
         images.setImageBitmap(c.getImage());
         txtGenero.setText(c.getGender());
